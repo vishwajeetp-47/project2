@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <script src="jquery-3.6.4.min.js"></script>
+        <script>
+            $(document).ready(function (){
+                $("#greet").click(function(){
+                var url="http://localhost:9000/getname?empid="+$("#empid").val();
+                alert(url);
+                $.get(url,function(data,status){
+                    if(status=="success")
+                     $("#msg").html(data);
+                  })
+
+                })
+            })
+        </script>
+
+    </head>
+    <body>
+    <form name="f1">
+            Enter employee id:
+            <input type="number" id="empid"/>
+            <br/>
+            <input type="button" id="greet" value="Greet"/>
+        </form>
+        <div id="msg">
+
+        </div>
+    </body>
+</html>
