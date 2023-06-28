@@ -1,0 +1,197 @@
+CREATE TABLE Customers (
+  customer_id INT AUTO_INCREMENT PRIMARY KEY,
+  Name VARCHAR(50),
+  email VARCHAR(255) UNIQUE,
+  phone_number VARCHAR(20) UNIQUE,
+  login_id VARCHAR(50) UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  CONSTRAINT chk_pass CHECK (length(password) > 7)
+);
+
+CREATE TABLE CustomerAddresses (
+  customer_id INT ,
+  address VARCHAR(255),
+  city VARCHAR(50),
+  state VARCHAR(50),
+  pin_code VARCHAR(10),
+  constraint fkcaid FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
+);
+
+CREATE TABLE Florists (
+  florist_id INT AUTO_INCREMENT PRIMARY KEY,
+  florist_name VARCHAR(50),
+  email VARCHAR(255),
+  phone_number VARCHAR(20)
+);
+
+
+CREATE TABLE FloristsAddresses (
+  florist_id INT ,
+  address VARCHAR(255),
+  city VARCHAR(50),
+  state VARCHAR(50),
+  zip_code VARCHAR(10),
+  constraint fkfaid FOREIGN KEY (florist_id) REFERENCES Florists(florist_id)
+);
+
+
+
+
+CREATE TABLE Contract_service (
+  contract_id INT PRIMARY KEY,
+  contract_type varchar(15),
+  customer_id int,
+  florist_id int,
+  flower_id int,
+  qty int default 0,
+  price int default 0,
+  start_date varchar(10),
+  end_date varchar(10),
+  Total_days int default 0,
+  Total_price int default 0,
+  constraint fkcscid FOREIGN KEY (customer_id) REFERENCES Customers(customer_id),
+  constraint fkcsflrid FOREIGN KEY (florist_id) REFERENCES Florists(florist_id),
+  constraint fkcsflwid FOREIGN KEY (flower_id) REFERENCES Flowers(flower_id)
+);
+
+CREATE TABLE Orders(
+  order_id int PRIMARY KEY,
+  customer_id int,
+  florist_id int,
+  flower_id int,
+  order_date varchar(10),
+  delivery_date varchar(10),
+  qty int default 0,
+  total_price int default 0,
+  constraint fkcscid FOREIGN KEY (customer_id) REFERENCES Customers(customer_id),
+  constraint fkcsflwid FOREIGN KEY (flower_id) REFERENCES Flowers(flower_id),
+  constraint fkcdfj FOREIGN KEY (florist_id) REFERENCES Flourist(flourist_id)
+);
+
+CREATE TABLE Stock (
+  stock_id INT AUTO_INCREMENT PRIMARY KEY,
+  florist_id INT,
+  flower_id INT,
+  quantity INT,
+  CONSTRAINT fk_stock_florist_id FOREIGN KEY (florist_id) REFERENCES Florists(florist_id),
+  CONSTRAINT fk_stock_flower_id FOREIGN KEY (flower_id) REFERENCES Flowers(flower_id)
+);
+
+
+INSERT INTO Customers (customer_id, Name, email, phone_number,login_id,password)
+VALUES (101, 'Akshay Kumar', 'Ak@gmail.com', '555-1234','akshay101','adgvd@123'),
+       (102, 'Vikas Singh', 'VS@gmail.com', '555-5678','vikas102','wjhdwd$12'),
+       (103, 'Steve Smith', 'smith@gmail.com', '789-9101','steve103','fddghsdg@45'),
+	 (104, 'Vinay Patil', 'Vpatil@gmail.com', '523-9742','vinay104','pfdbh$09'),
+	 (105, 'Kiran Godse', 'Kg@gmail.com', '525-4823','kiran105','vdicbh@78');
+
+
+
+
+
+INSERT INTO CustomerAddresses(C_address_id, address, city, state, zip_code)
+VALUES (101, 'Shivajinagar', 'Pune', 'Maharastra', '410 505'),
+       (102, 'Pandharpur', 'Solapur', 'Maharastra', '411 041'),
+       (103, 'Panvel', 'Mumbai', 'Maharastra', '412 023'),
+	 (104, 'Dombivali', 'Mumbai', 'Maharastra', '400 023'),
+	 (105, 'Nagpur Bus Stop', 'Nagpur', 'Maharastra', '412 223');
+
+
+
+
+INSERT INTO Florists (florist_id, florist_name, email, phone_number)
+VALUES (111, 'Rose Garden', 'rosegarden@gmail.com', '555-2345'),
+       (222, 'Tulip Fields', 'tulipfields@gmail.com', '555-6789'),
+       (333, 'Lily Pad', 'lilypad@gmail.com', '555-0123'),
+	 (444, 'Jasmine Farm', 'JasFarm@gmail.com', '555-0123');
+
+
+
+
+INSERT INTO FloristsAddresses(F_address_id, address, city, state, zip_code)
+VALUES (111, 'Satana', 'Nasik', 'Maharastra', '416 000'),
+ 	 (222, 'Chalisgoan', 'Jalgoan', 'Maharastra', '502 044'),
+ 	 (333, 'Dongoan', 'Buldhana', 'Maharastra', '505 020'),
+	 (444, 'Baramati', 'Pune', 'Maharastra', '510 123');
+
+
+
+
+
+CREATE TABLE Flowers (
+  flower_id INT PRIMARY KEY,
+  flower_name VARCHAR(50) UNIQUE,
+  florist_id INT,
+  description VARCHAR(255),
+  price int,
+  constraint fkflwid FOREIGN KEY (florist_id) REFERENCES Florists(florist_id)
+);
+
+INSERT INTO Flowers (flower_id, flower_name, florist_id, description, price)
+VALUES (1, 'Red Roses', 111, 'A dozen red roses', 30),
+       (2, 'Yellow Tulips', 222, 'A bouquet of yellow tulips', 20),
+       (3, 'Pink Lilies', 333, 'A vase of pink lilies', 25),
+	 (4, 'Jasmine', 444, 'Jasmine belongs to the olive family', 35);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE Customers1 (
+  customer_id INT PRIMARY KEY auto_increment,
+  Name VARCHAR(50),
+  email VARCHAR(255),
+  phone_number VARCHAR(20),
+  login_id VARCHAR(50),
+  password VARCHAR(255)
+);
+
+
+INSERT INTO Customers1 ( Name, email, phone_number)
+VALUES ('Akshay Kumar', 'Ak@gmail.com', '555-1234'),
+       ('Vikas Singh', 'VS@gmail.com', '555-5678'),
+       ('Steve Smith', 'smith@gmail.com', '789-9101'),
+	 ('Vinay Patil', 'Vpatil@gmail.com', '523-9742'),
+	 ('Kiran Godse', 'Kg@gmail.com', '525-4823');
+
+
+CREATE TABLE CustomerAddresses1 (
+  C_address_id INT auto_increment,
+  address VARCHAR(255),
+  city VARCHAR(50),
+  state VARCHAR(50),
+  zip_code VARCHAR(10),
+  constraint fkcaid FOREIGN KEY (C_address_id) REFERENCES Customers1(customer_id) on delete cascade
+);
+
+
+INSERT INTO CustomerAddresses1(address, city, state, zip_code)
+VALUES ('Shivajinagar', 'Pune', 'Maharastra', '410 505'),
+       ('Pandharpur', 'Solapur', 'Maharastra', '411 041'),
+       ('Panvel', 'Mumbai', 'Maharastra', '412 023'),
+	 ('Dombivali', 'Mumbai', 'Maharastra', '400 023'),
+	 ('Nagpur Bus Stop', 'Nagpur', 'Maharastra', '412 223');
+
+
+
+drop table customeraddresses ,customers ,florists ,floristsaddresses ,flowers;
+
+
+
+
+

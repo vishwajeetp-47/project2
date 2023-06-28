@@ -1,0 +1,27 @@
+CREATE TABLE Customers (
+  customer_id INT AUTO_INCREMENT PRIMARY KEY,
+  Name VARCHAR(50),
+  email VARCHAR(255) UNIQUE,
+  phone_number VARCHAR(20) UNIQUE ,
+  login_id VARCHAR(50) UNIQUE,
+  password VARCHAR(255) NOT NULL,
+ CONSTRAINT chk_mblno CHECK(length(phone_number)=10),
+  CONSTRAINT chk_pass CHECK (length(password) > 7)
+);
+
+
+INSERT INTO Customers (customer_id, Name,phone_number,login_id,password)
+VALUES (101, 'Akshay Kumar','8493483425','akshay101','adgvd@123'),
+       (102, 'Vikas Singh','9344903491','vikas102','wjhdwd$12'),
+       (103, 'Steve Smith','4893894891','steve103','fddghsdg@45'),
+	 (104, 'Vinay Patil','8109849042','vinay104','pfdbh$09'),
+	 (105, 'Kiran Godse','7394383948','kiran105','vdicbh@78');
+
+
+
+INSERT INTO Flowers (flower_id, flower_name, florist_id, description, price)
+VALUES (1, 'Red Roses', 111, 'A dozen red roses', 30),
+       (2, 'Yellow Tulips', 222, 'A bouquet of yellow tulips',20),
+       (3, 'Pink Lilies', 333, 'A vase of pink lilies', 25),
+	 (4, 'Jasmine', 444, 'Jasmine belongs to the olive family',35);
+

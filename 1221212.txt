@@ -1,0 +1,55 @@
+INSERT INTO Customers (customer_id, Name, phone_number,login_id,password)
+VALUES (101, 'Akshay Kumar', '555-1234','akshay101','adgvd@123'),
+       (102, 'Vikas Singh', '555-5678','vikas102','wjhdwd$12'),
+       (103, 'Steve Smith', '789-9101','steve103','fddghsdg@45'),
+	 (104, 'Vinay Patil', '523-9742','vinay104','pfdbh$09'),
+	 (105, 'Kiran Godse', '525-4823','kiran105','vdicbh@78');
+
+INSERT INTO CustomerAddresses(customer_id, address, city, state,pin_code)
+VALUES (101, 'Shivajinagar', 'Pune', 'Maharastra', '410 505'),
+       (102, 'Pandharpur', 'Solapur', 'Maharastra', '411 041'),
+       (103, 'Panvel', 'Mumbai', 'Maharastra', '412 023'),
+	 (104, 'Dombivali', 'Mumbai', 'Maharastra', '400 023'),
+	 (105, 'Nagpur Bus Stop', 'Nagpur', 'Maharastra', '412 223');
+
+
+INSERT INTO Florists (florist_id, florist_name, phone_number)
+VALUES (221, 'Rose_Garden', '555-2345'),
+       (222, 'Tulip_Fields', '555-6789'),
+       (223, 'Lily_Store', '555-0123'),
+	 (224, 'Jasmine_Farm', '555-0123');
+
+
+INSERT INTO FloristsAddresses(florist_id, address, city, state, zip_code)
+VALUES (221, 'Satana', 'Nasik', 'Maharastra', '416 000'),
+ 	 (222, 'Chalisgoan', 'Jalgoan', 'Maharastra', '502 044'),
+ 	 (223, 'Dongoan', 'Buldhana', 'Maharastra', '505 020'),
+	 (224, 'Baramati', 'Pune', 'Maharastra', '510 123');
+
+
+INSERT INTO Flowers (flower_id, flower_name, florist_id, description, price)
+VALUES (1, 'Red Roses', 111, 'A dozen red roses', 30),
+       (2, 'Yellow Tulips', 222, 'A bouquet of yellow tulips', 20),
+       (3, 'Pink Lilies', 333, 'A vase of pink lilies', 25),
+	 (4, 'Jasmine', 444, 'Jasmine belongs to the olive family', 35);
+
+
+
+DELIMITER $$
+CREATE PROCEDURE generateCustomer_email()
+BEGIN
+    UPDATE Customers SET email = CONCAT(SUBSTR(Name, 1, 5), '@gmail.com');
+END$$
+DELIMITER ;
+
+CALL generate_email();
+
+DELIMITER $$
+CREATE PROCEDURE generateflorist_email()
+BEGIN
+    UPDATE Florists SET email = CONCAT(florist_name, '@gmail.com');
+END$$
+DELIMITER ;
+
+
+
